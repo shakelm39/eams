@@ -4,7 +4,7 @@
 ?>
 <?php 
     $emp = new Employee();
-    $cur_date = date('d-m-Y');
+    $cur_date = date('Y-m-d');
 
     if($_SERVER['REQUEST_METHOD']=='POST'){
         $attend = $_POST['attend'];

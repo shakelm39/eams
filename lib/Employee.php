@@ -51,15 +51,18 @@ class Employee{
 
     //insert employee attendance 
 
-    public function insertAttendance($cur_date, $attend){
+    public function insertAttendance($cur_date, $attend = array()){
         $attnd_qry = "SELECT DISTINCT att_time from tbl_attendance";
         $att_data = $this->db->select($attnd_qry);
+        
 
         while($row = $att_data->fetch_assoc()){
             $db_date = $row['att_time'];
+
             if($cur_date == $db_date){
                 $msg = "<div class='alert alert-danger'><strong>Error!</strong> Attendance taken today!!</div>";
                     return $msg;
+                    
             }
         }
 
