@@ -5,6 +5,20 @@
 <?php 
     $emp = new Employee();
     $cur_date = date('d-m-Y');
+
+    if($_SERVER['REQUEST_METHOD']=='POST'){
+        $attend = $_POST['attend'];
+
+        $insert_attend = $emp->insertAttendance($cur_date, $attend); 
+        
+    }
+?>
+
+<?php 
+if(isset($insert_attend)){
+   
+    echo $insert_attend;
+}
 ?>
         
         <!-- card  -->

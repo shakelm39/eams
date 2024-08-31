@@ -15,11 +15,13 @@ class Employee{
         $this->db = new Database();
     }
 
+    // view employee data
     public function getEmp(){
         $query = "SELECT * FROM employee";
         $result = $this->db->select($query);
         return $result;
     }
+    //insert employee data
     public function insertEmployee($name, $emp_id){
         $name = mysqli_real_escape_string($this->db->link, $name);
         $emp_id = mysqli_real_escape_string($this->db->link, $emp_id);
@@ -44,6 +46,41 @@ class Employee{
                 return $msg;
             }
         }
+    }
+
+
+    //insert employee attendance 
+
+    public function insertAttendance($cur_date, $attend){
+        $attnd_qry = "SELECT DISTINCT att_time from tbl_attendance";
+        $att_data = $this->db->select($attnd_qry);
+
+        while($row = $att_data->fetch_assoc()){
+            $db_date = $row['att_time'];
+            if($cur_date == $db_date){
+                $msg = "<div class='alert alert-danger'><strong>Error!</strong> Attendance taken today!!</div>";
+                    return $msg;
+            }
+        }
+
+        foreach ($attend as $att_key => $att_value) {
+            if($att_value=='present'){
+                $emp_qry = "INSERT INTO tbl_attendance (emp_id, attend, att_time) VALUES ('$att_key', 'present', now())";
+                $data_insert = $this->db->insert($emp_qry);
+            }else if($att_value=='absent'){
+                $emp_qry = "INSERT INTO tbl_attendance (emp_id, attend, att_time) VALUES ('$att_key', 'absent', now())";
+                $data_insert = $this->db->insert($emp_qry);
+            }
+        }
+
+        if($data_insert){
+            $msg = "<div class='alert alert-success'><strong>Success!</strong> Attendance data inserted!!</div>";
+            return $msg;
+        }else{
+            $msg = "<div class='alert alert-danger'><strong>Error!</strong> Attendance Data not inserted!!</div>";
+            return $msg;
+        }
+        
     }
 }
 
