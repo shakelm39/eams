@@ -8,13 +8,17 @@
 
 
 class Employee{
+    public $db;
+
 
     public function __construct(){
-        
+        $this->db = new Database();
     }
 
     public function getEmp(){
-
+        $query = "SELECT * FROM employee";
+        $result = $this->db->select($query);
+        return $result;
     }
 }
 

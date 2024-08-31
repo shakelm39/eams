@@ -33,26 +33,22 @@
                         </thead>
                         <tbody>
                             <?php
-                                $get_emp = getEmp(); 
+                                $get_emp = $emp->getEmp();
+                                if($get_emp){
+                                    $sln =1;
+                                while($row = $get_emp->fetch_assoc()){
+                                 
                             ?>
                             <tr>
-                                <td>01</td>
-                                <td>Shakel</td>
-                                <td>129850</td>
+                                <td><?php echo $sln;?></td>
+                                <td><?php echo $row['name'];?></td>
+                                <td><?php echo $row['emp_id'];?></td>
                                 <td>
-                                    <input type="radio" name="attend" value="present">P
-                                    <input type="radio" name="attend" value="absent">A
+                                    <input type="radio" name="attend[<?php echo $row['emp_id'];?>]" value="present">P
+                                    <input type="radio" name="attend[<?php echo $row['emp_id'];?>]" value="absent">A
                                 </td>
                             </tr>
-                            <tr>
-                                <td>02</td>
-                                <td>Shakel</td>
-                                <td>129850</td>
-                                <td>
-                                    <input type="radio" name="attend" value="present">P
-                                    <input type="radio" name="attend" value="absent">A
-                                </td>
-                            </tr>
+                            <?php $sln++; }} ?>
                             <tr>
                                 <td colspan="4">
                                     <input type="submit" class="btn btn-primary" name="submit" value="Submit">
