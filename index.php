@@ -1,5 +1,11 @@
-<?php include('inc/header.php') ?>
-    
+<?php 
+    include('inc/header.php') ;
+    include('lib/Employee.php') ;
+?>
+<?php 
+    $emp = new Employee();
+    $cur_date = date('d-m-Y');
+?>
         
         <!-- card  -->
         <div class="card">
@@ -13,7 +19,7 @@
             <!-- card-body  -->
             <div class="card-body">
                 <div class="card-title">
-                    <strong>Date: </strong><?php $cur_date = date('d-m-Y'); echo $cur_date?>
+                    <strong>Date: </strong><?php  echo $cur_date?>
                 </div>
                 <form action="" method="POST">
                     <table class="table table-striped table-bordered">
@@ -26,6 +32,9 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php
+                                $get_emp = getEmp(); 
+                            ?>
                             <tr>
                                 <td>01</td>
                                 <td>Shakel</td>
