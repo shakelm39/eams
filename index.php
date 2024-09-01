@@ -2,6 +2,26 @@
     include('inc/header.php') ;
     include('lib/Employee.php') ;
 ?>
+<script>
+    $(document).ready(function(){
+
+        $('form').submit(function(){
+
+            var emp_id = true;
+
+            $(':radio').each(function(){
+                name = $(this).attr('name');
+               
+                if(emp_id && !$(':radio[name="'+ name +'"]:checked').length){
+                    //alert(name + " Roll Missing! ");
+                    $('.alert').show();
+                    emp_id = false;
+                }
+            });
+            return emp_id;
+        });
+    });
+</script>
 <?php 
     $emp = new Employee();
     $cur_date = date('Y-m-d');
@@ -22,7 +42,9 @@ if(isset($insert_attend)){
 ?>
         
         <!-- card  -->
+        <div class='alert alert-danger' style="display:none;"><strong>Error!</strong> One or more Employee Attendance Missing !!</div>
         <div class="card">
+        
             <!-- card header -->
             <div class="card-header">
                 <div class="card-title">
@@ -55,7 +77,7 @@ if(isset($insert_attend)){
                             ?>
                             <tr>
                                 <td><?php echo $sln;?></td>
-                                <td><?php echo $row['name'];?></td>
+                                <td id="emp_name"><?php echo $row['name'];?></td>
                                 <td><?php echo $row['emp_id'];?></td>
                                 <td>
                                     <input type="radio" name="attend[<?php echo $row['emp_id'];?>]" value="present">P

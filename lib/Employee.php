@@ -85,6 +85,25 @@ class Employee{
         }
         
     }
+
+
+
+
+    //get date view function
+
+    public function attendaceDateList(){
+        $get_date = "SELECT att_time From tbl_attendance GROUP BY att_time desc";
+        $result = $this->db->select($get_date);
+
+        if($result){
+            return $result;
+        }
+    }
+
+
+
+
+
 }
 
 ?>
